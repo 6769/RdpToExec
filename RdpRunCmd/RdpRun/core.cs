@@ -239,6 +239,7 @@ namespace RdpRun
         public const byte vbKeyReturn = 0xD;     // ENTER 键
         public const byte vbKeyShift = 0x10;     // SHIFT 键
         public const byte vbKeyControl = 0x11;   // CTRL 键
+        public const byte VK_LCONTROL = 0xA2; //Left Control key code
         public const byte vbKeyAlt = 18;         // Alt 键  (键码18)
         public const byte vbKeyMenu = 0x12;      // MENU 键
         public const byte vbKeyPause = 0x13;     // PAUSE 键
@@ -336,6 +337,7 @@ namespace RdpRun
 
         private const int KEYEVENTF_EXTENDEDKEY = 1;
         private const int KEYEVENTF_KEYUP = 2;
+        public const int KEYEVENTF_KEYDOWN = 0;
         #endregion
 
         #region 引用win32api方法
@@ -350,20 +352,34 @@ namespace RdpRun
         [DllImport("user32.dll")]
         public static extern void keybd_event(byte bVk, byte bScan, int dwFlags, int dwExtraInfo);
 
+        [DllImport("user32.dll", EntryPoint = "SendMessage")]
+        public static extern int SendMessage(IntPtr hwnd, int wMsg, uint wParam, uint lParam);
+        
+        
         #endregion
 
         public static void CtrlV()
         {
             //模拟按下ctrl键
+            //keybd_event(VK_LCONTROL, 0, 0, 0);
             keybd_event(vbKeyControl, 0, 0, 0);
             //模拟按下V键
             keybd_event(vbKeyV, 0, 0, 0);
 
-            //模拟松开ctrl键
-            keybd_event(vbKeyControl, 0, 2, 0);
+            
+
             //模拟松开V键
             keybd_event(vbKeyV, 0, 2, 0);
+            //模拟松开ctrl键
+            //keybd_event(VK_LCONTROL, 0,  KEYEVENTF_KEYUP, 0);
+            keybd_event(vbKeyControl, 0, KEYEVENTF_KEYUP, 0);
         }
+
+        public static void CtrlV(IntPtr hwnd)
+        {
+
+        }
+       
 
         public static void WinR()
         {

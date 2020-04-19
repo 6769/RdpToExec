@@ -12,11 +12,11 @@ namespace RdpRun.Tests
     [TestClass()]
     public class NativeKeyBoardTests
     {
-        //[Ignore]
+        [Ignore]
         [TestMethod()]
         public void WinRTest()
         {
-            
+
             //对Mstsc有效，但对FreeRDP无效
             Thread.Sleep(1500);
             NativeKeyBoard.WinR();
@@ -30,7 +30,17 @@ namespace RdpRun.Tests
         [TestMethod()]
         public void RunCmdTest()
         {
-            CMD.RunCmd("cmd.exe");
+            //CMD.RunCmd("cmd.exe");
         }
+
+        //[Ignore]
+        [TestMethod()]
+        public void CtrlVTest()
+        {
+            Thread.Sleep(1500);
+            NativeKeyBoard.CtrlV();
+        }
+
+        
     }
 }
