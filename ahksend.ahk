@@ -23,6 +23,8 @@ Sleep, 500
 SendInput, {Enter} 
 Sleep, 500
 
+;模拟点击会造成部分非admin用户登录的操作系统进入UAC防护检查，需要增加点击操作，而真实用户的输入则不会触发UAC问题；
+;似乎FreeRDP将点击消息也传递到了RDP服务器端
 
 ExitApp 
 
